@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "261cdc45-c2f3-4783-bb17-2f19f4834116",
+		"name": "Bootstrap Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2180004"
+	},
+	"item": [
+		{
+			"name": "CreateUsersInLoop",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let idx = pm.collectionVariables.get(\"userIdx\");\r",
+							"let countries = JSON.parse(pm.collectionVariables.get(\"countries\"));\r",
+							"let nicknames = JSON.parse(pm.collectionVariables.get(\"nicknames\"));\r",
+							"let firstNames = JSON.parse(pm.collectionVariables.get(\"firstNames\"));\r",
+							"let lastNames = JSON.parse(pm.collectionVariables.get(\"lastNames\"));\r",
+							"let domains = JSON.parse(pm.collectionVariables.get(\"domains\"));\r",
+							"\r",
+							"pm.variables.set(\"country\", countries[idx%countries.length]);\r",
+							"pm.variables.set(\"nickname\", nicknames[idx%nicknames.length] + \"\" + idx);\r",
+							"pm.variables.set(\"firstName\", firstNames[idx%firstNames.length] + \"\" + idx);\r",
+							"pm.variables.set(\"lastName\", lastNames[idx%lastNames.length] + \"\" + idx);\r",
+							"pm.variables.set(\"email\", firstNames[idx%firstNames.length] + \"\" + idx + \"@\" + domains[idx%domains.length]);\r",
+							"\r",
+							"pm.variables.set(\"password\", CryptoJS.MD5(\"abcdef\").toString());"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let idx = pm.collectionVariables.get(\"userIdx\");\r",
+							"let numUsers = pm.collectionVariables.get(\"numUsers\");\r",
+							"\r",
+							"idx++;\r",
+							"\r",
+							"if (idx < numUsers) {\r",
+							"    pm.collectionVariables.set(\"userIdx\", idx);\r",
+							"    postman.setNextRequest(\"CreateUsersInLoop\");\r",
+							"} else {\r",
+							"    pm.collectionVariables.set(\"userIdx\", 0);\r",
+							"    postman.setNextRequest(null);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"{{firstName}}\",\r\n    \"last_name\": \"{{lastName}}\", \r\n    \"nickname\": \"{{nickname}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"country\": \"{{country}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}{{port}}/user",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}{{port}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "countries",
+			"value": "[\"UK\", \"IT\", \"US\"]",
+			"type": "string"
+		},
+		{
+			"key": "nicknames",
+			"value": "[\"nicky\", \"nicker\", \"nicksy\", \"nick\"]",
+			"type": "string"
+		},
+		{
+			"key": "firstNames",
+			"value": "[\"john\", \"judy\", \"jacob\", \"jacky\", \"jane\"]",
+			"type": "string"
+		},
+		{
+			"key": "lastNames",
+			"value": "[\"Smith\", \"Johnson\", \"Williams\", \"Brown\", \"Lee\", \"Clark\"]",
+			"type": "string"
+		},
+		{
+			"key": "domains",
+			"value": "[\"gmail.com\", \"hotmail.com\", \"yahoo.com\"]",
+			"type": "string"
+		},
+		{
+			"key": "numUsers",
+			"value": "100",
+			"type": "string"
+		},
+		{
+			"key": "userIdx",
+			"value": "0",
+			"type": "string"
+		}
+	]
+}

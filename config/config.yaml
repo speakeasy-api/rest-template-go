@@ -1,0 +1,8 @@
+http:
+  port: "8080"
+psql:
+  username: guest
+  password: guest
+  host: localhost
+  port: 5432
+  database: faceit

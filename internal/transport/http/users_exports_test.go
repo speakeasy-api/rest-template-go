@@ -1,0 +1,4 @@
+package http
+
+type SearchUsersRequest searchUsersRequest
+type DeletedUserResponse deletedUserResponse
