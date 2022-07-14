@@ -3,7 +3,7 @@
 - Website: https://www.speakeasyapi.dev/
 - Twitter: https://twitter.com/speakeasydev
 
-![speakeasy logo](https://user-images.githubusercontent.com/6267663/179080966-624d8993-e9ce-477a-9dbb-628b9a922a6a.png)
+![speakeasy logo](https://user-images.githubusercontent.com/6267663/179081886-8ee32e19-cf64-49f5-9865-2d0497008a22.png)
 
 ## How To Use This Repo
 
