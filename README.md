@@ -15,7 +15,7 @@ This repo is intended to be used by Golang developers seeking to understand the 
 - **Tested**: We believe that a blend of unit and integration testing is important for ensuring that the service maintains its contract with consumers. The service repo therefore contains a collection of unit and integration tests for the various layers of the service.
 - **Explorable**: It is important for developers to be able to play with an endpoint in order to understand it. We have provided Postman collections for testing out the REST endpoints exposed by the service. That's why there is a `Bootstrap Users` collection that can be run using the `Run collection` tool in Postman that will create 100 users to test the search endpoint with.
 
-This repo can serve as an educational tool, or be used as a foundation upon which developers can build their own basic API scaffolding to turn API development into a consistent and marignally easier activity.
+This repo can serve as an educational tool, or be used as a foundation upon which developers can build their own basic API scaffolding to turn API development into a consistent experience so your customers have a best in class experience
 
 ## Getting Started
 
