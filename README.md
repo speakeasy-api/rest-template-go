@@ -25,19 +25,12 @@ This repo can serve as an educational tool, or be used as a foundation upon whic
 
 ### Running locally
 
-#### Common setup
-
-1. Set `SPEAKEASY_SDK_API_KEY={your-api-key}` in your environment.
-2. Set `SPEAKEASY_SDK_WORKSPACE_ID={your-workspace-id}` in your environment.
-
-#### Running directly
-
 1. From root of the repo
-2. Run `go mod download` to install dependencies
-3. Run `docker-compose up -d postgres` to run the postgres dependency
-4. Run `go run cmd/server/main.go` will start the server on port 8081
+2. Run go mod download to install dependencies
+3. Run docker-compose up -d postgres to run the postgres dependency
+4. Run go run cmd/server/main.go will start the server on port 8080
 
-#### Running via docker
+### Running via docker
 
 1. From root of the repo
 2. Run `make docker` will start the dependencies and server on port 8081
