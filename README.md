@@ -1,4 +1,4 @@
-# speakeasy-example-rest-service
+# speakeasy-example-rest-service-go
 
 ## Getting Started
 
