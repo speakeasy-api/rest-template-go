@@ -1,0 +1,44 @@
+linters:
+  enable-all: true
+  disable:
+    - lll
+    - varnamelen
+    - exhaustivestruct
+    - exhaustruct
+    - godox
+    - nlreturn
+    - wsl
+    - wrapcheck
+    - gochecknoglobals
+    - paralleltest
+    - dupl
+    - containedctx
+    # Deprecated
+    - golint
+    - maligned
+    - interfacer
+    - scopelint
+issues:
+  exclude:
+    - "returns unexported type"
+    - "unlambda"
+    - "should rewrite http.NewRequestWithContext"
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - scopelint
+        - goerr113
+        - funlen
+        - gocognit
+        - cyclop
+    - path: _exports_test\.go
+      linters:
+        - testpackage
+  include:
+    - EXC0012
+    - EXC0013
+    - EXC0014
+    - EXC0015
+run:
+  go: "1.14"
