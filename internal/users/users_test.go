@@ -5,14 +5,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/AlekSi/pointer"
+	"github.com/golang/mock/gomock"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/events"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/mocks"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
-
-	"github.com/AlekSi/pointer"
-	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -9,13 +9,12 @@ import (
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
-
 	"go.uber.org/zap"
 )
 
 // FindUsers will retrieve a list of users based on matching all of the the provided filters and using pagination if limit is gt 0
 // Note: depending on the actual use cases for such functionality I would probably take the route of using elasticsearch and opening up
-// the flexibility of having a search type function
+// the flexibility of having a search type function.
 func (s *Store) FindUsers(ctx context.Context, filters []model.Filter, offset, limit int64) ([]*model.User, error) {
 	if len(filters) == 0 {
 		return nil, ErrInvalidFilters.Wrap(errors.ErrInvalidRequest)
@@ -70,6 +69,8 @@ func getFindValue(f model.Filter) string {
 	switch f.MatchType {
 	case model.MatchTypeLike:
 		return fmt.Sprintf("%%%s%%", f.Value)
+	case model.MatchTypeEqual:
+		fallthrough
 	default:
 		return f.Value
 	}

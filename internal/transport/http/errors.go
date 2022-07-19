@@ -8,12 +8,11 @@ import (
 
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
-
 	"go.uber.org/zap"
 )
 
 func handleError(ctx context.Context, w http.ResponseWriter, err error) {
-	logging.From(ctx).Error("error occured in request", zap.Error(err))
+	logging.From(ctx).Error("error occurred in request", zap.Error(err))
 
 	switch {
 	case errors.Is(err, errors.ErrInvalidRequest):

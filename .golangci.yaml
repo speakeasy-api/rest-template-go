@@ -41,4 +41,11 @@ issues:
     - EXC0014
     - EXC0015
 run:
-  go: "1.14"
+  go: "1.18"
+linters-settings:
+  tagliatelle:
+    case:
+      use-field-name: true
+      rules:
+        json: snake
+        yaml: camel

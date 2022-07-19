@@ -1,4 +1,6 @@
 package http
 
-type SearchUsersRequest searchUsersRequest
-type DeletedUserResponse deletedUserResponse
+type (
+	SearchUsersRequest  searchUsersRequest
+	DeletedUserResponse deletedUserResponse
+)

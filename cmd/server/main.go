@@ -13,7 +13,6 @@ import (
 	httptransport "github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/transport/http"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/store"
-
 	"go.uber.org/zap"
 )
 

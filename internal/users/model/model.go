@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-// User represents a person using our platform
+// User represents a person using our platform.
 type User struct {
 	ID        *string    `json:"id" db:"id"`
 	FirstName *string    `json:"first_name" db:"first_name"`
@@ -15,33 +15,33 @@ type User struct {
 	UpdatedAt *time.Time `json:"updated_at" db:"updated_at"`
 }
 
-// Field is an enum providing valid fields for filtering
+// Field is an enum providing valid fields for filtering.
 type Field string
 
 const (
-	// FieldFirstName represents the first name field
+	// FieldFirstName represents the first name field.
 	FieldFirstName Field = "first_name"
-	// FieldLastName represents the last name field
+	// FieldLastName represents the last name field.
 	FieldLastName Field = "last_name"
-	// FieldNickname represents the nickname field
+	// FieldNickname represents the nickname field.
 	FieldNickname Field = "nickname"
-	// FieldEmail represents the email field
+	// FieldEmail represents the email field.
 	FieldEmail Field = "email"
-	// FieldCountry represents the country field
+	// FieldCountry represents the country field.
 	FieldCountry Field = "country"
 )
 
-// MatchType is an enum providing valid matching mechanisms for filtering values
+// MatchType is an enum providing valid matching mechanisms for filtering values.
 type MatchType string
 
 const (
-	// MatchTypeLike represents a LIKE match
+	// MatchTypeLike represents a LIKE match.
 	MatchTypeLike MatchType = "ILIKE"
-	// MatchTypeEqual represents an exact match
+	// MatchTypeEqual represents an exact match.
 	MatchTypeEqual MatchType = "="
 )
 
-// Filter is a struct representing a filter for finding users
+// Filter is a struct representing a filter for finding users.
 type Filter struct {
 	MatchType MatchType `json:"match_type"`
 	Field     Field     `json:"field"`

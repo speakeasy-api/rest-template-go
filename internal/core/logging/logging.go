@@ -8,7 +8,9 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-const loggerKey = "logger"
+type contextKey int
+
+const loggerKey contextKey = iota
 
 var defaultLogger = zap.New(zapcore.NewCore(
 	zapcore.NewJSONEncoder(zapcore.EncoderConfig{
@@ -28,6 +30,7 @@ var defaultLogger = zap.New(zapcore.NewCore(
 	zap.NewAtomicLevelAt(zapcore.InfoLevel),
 ), zap.AddCaller(), zap.AddCallerSkip(1))
 
+// From returns the logger associated with the given context.
 func From(ctx context.Context) *zap.Logger {
 	if l, ok := ctx.Value(loggerKey).(*zap.Logger); ok {
 		return l
@@ -35,10 +38,12 @@ func From(ctx context.Context) *zap.Logger {
 	return defaultLogger
 }
 
+// With returns a new context with the provided logger.
 func With(ctx context.Context, l *zap.Logger) context.Context {
 	return context.WithValue(ctx, loggerKey, l)
 }
 
+// WithFields returns a new context with the provided fields attached as metadata to future loggers.
 func WithFields(ctx context.Context, fields ...zap.Field) context.Context {
 	if len(fields) == 0 {
 		return ctx
@@ -46,13 +51,7 @@ func WithFields(ctx context.Context, fields ...zap.Field) context.Context {
 	return With(ctx, From(ctx).With(fields...))
 }
 
-func WithOptions(ctx context.Context, opts ...zap.Option) context.Context {
-	if len(opts) == 0 {
-		return ctx
-	}
-	return With(ctx, From(ctx).WithOptions(opts...))
-}
-
+// Sync flushes any buffered log entries.
 func Sync(ctx context.Context) error {
 	return From(ctx).Sync()
 }

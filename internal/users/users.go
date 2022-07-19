@@ -9,20 +9,19 @@ import (
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/events"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
-
 	"go.uber.org/zap"
 )
 
 const (
-	// ErrInvalidFilterValue is returned when a filter value is empty
+	// ErrInvalidFilterValue is returned when a filter value is empty.
 	ErrInvalidFilterValue = errors.Error("invalid_filter_value: invalid filter value")
-	// ErrInvalidFilterMatchType is returned when a filter match type is not found in the supported enum list
+	// ErrInvalidFilterMatchType is returned when a filter match type is not found in the supported enum list.
 	ErrInvalidFilterMatchType = errors.Error("invalid_filter_match_type: invalid filter match type")
-	// ErrInvalidFilterField is returned when a filter field is not found in the supported enum list
+	// ErrInvalidFilterField is returned when a filter field is not found in the supported enum list.
 	ErrInvalidFilterField = errors.Error("invalid_filter_field: invalid filter field")
 )
 
-// Store represents a type for storing a user in a database
+// Store represents a type for storing a user in a database.
 type Store interface {
 	InsertUser(ctx context.Context, user *model.User) (*model.User, error)
 	UpdateUser(ctx context.Context, user *model.User) (*model.User, error)
@@ -32,18 +31,18 @@ type Store interface {
 	DeleteUser(ctx context.Context, id string) error
 }
 
-// Events represents a type for producing events on user CRUD operations
+// Events represents a type for producing events on user CRUD operations.
 type Events interface {
 	Produce(ctx context.Context, topic events.Topic, payload interface{})
 }
 
-// Users provides functionality for CRUD operations on a user
+// Users provides functionality for CRUD operations on a user.
 type Users struct {
 	store  Store
 	events Events
 }
 
-// New will instantiate a new instance of Users
+// New will instantiate a new instance of Users.
 func New(s Store, e Events) *Users {
 	return &Users{
 		store:  s,
@@ -51,7 +50,7 @@ func New(s Store, e Events) *Users {
 	}
 }
 
-// CreateUser will try to create a user in our database with the provided data if it represents a unique new user
+// CreateUser will try to create a user in our database with the provided data if it represents a unique new user.
 func (u *Users) CreateUser(ctx context.Context, user *model.User) (*model.User, error) {
 	// Not much validation needed before storing in the database as the database itself is handling most of that (postgres)
 	// if we were to use something else you would probably want to add validation of inputs here
@@ -75,7 +74,7 @@ func (u *Users) CreateUser(ctx context.Context, user *model.User) (*model.User, 
 	return createdUser, nil
 }
 
-// GetUser will try to get an existing user in our database with the provided id
+// GetUser will try to get an existing user in our database with the provided id.
 func (u *Users) GetUser(ctx context.Context, id string) (*model.User, error) {
 	user, err := u.store.GetUser(ctx, id)
 	if err != nil {
@@ -85,7 +84,7 @@ func (u *Users) GetUser(ctx context.Context, id string) (*model.User, error) {
 	return user, nil
 }
 
-// FindUsers will retrieve a list of users based on matching all of the the provided filters and using pagination if limit is gt 0
+// FindUsers will retrieve a list of users based on matching all of the the provided filters and using pagination if limit is gt 0.
 func (u *Users) FindUsers(ctx context.Context, filters []model.Filter, offset, limit int64) ([]*model.User, error) {
 	// Validate filters before searching with them
 	// TODO may want to return details of error instead of just logging
@@ -123,7 +122,7 @@ func (u *Users) FindUsers(ctx context.Context, filters []model.Filter, offset, l
 	return users, nil
 }
 
-// UpdateUser will try to update an existing user in our database with the provided data
+// UpdateUser will try to update an existing user in our database with the provided data.
 func (u *Users) UpdateUser(ctx context.Context, user *model.User) (*model.User, error) {
 	updatedUser, err := u.store.UpdateUser(ctx, user)
 	if err != nil {
@@ -139,7 +138,7 @@ func (u *Users) UpdateUser(ctx context.Context, user *model.User) (*model.User, 
 	return updatedUser, nil
 }
 
-// DeleteUser will try to delete an existing user in our database with the provided id
+// DeleteUser will try to delete an existing user in our database with the provided id.
 func (u *Users) DeleteUser(ctx context.Context, id string) error {
 	err := u.store.DeleteUser(ctx, id)
 	if err != nil {

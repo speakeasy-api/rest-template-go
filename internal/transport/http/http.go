@@ -7,12 +7,11 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
-
 	"github.com/gorilla/mux"
+	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
 )
 
-// Users represents a type that can provide CRUD operations on users
+// Users represents a type that can provide CRUD operations on users.
 type Users interface {
 	CreateUser(ctx context.Context, user *model.User) (*model.User, error)
 	GetUser(ctx context.Context, id string) (*model.User, error)
@@ -21,18 +20,18 @@ type Users interface {
 	DeleteUser(ctx context.Context, id string) error
 }
 
-// DB represents a type that can be used to interact with the database
+// DB represents a type that can be used to interact with the database.
 type DB interface {
 	PingContext(ctx context.Context) error
 }
 
-// Server represents a HTTP server that can handle requests for this microservice
+// Server represents a HTTP server that can handle requests for this microservice.
 type Server struct {
 	users Users
 	db    DB
 }
 
-// New will instantiate a new instance of Server
+// New will instantiate a new instance of Server.
 func New(u Users, db DB) *Server {
 	return &Server{
 		users: u,
@@ -40,7 +39,7 @@ func New(u Users, db DB) *Server {
 	}
 }
 
-// AddRoutes will add the routes this server supports to the router
+// AddRoutes will add the routes this server supports to the router.
 func (s *Server) AddRoutes(r *mux.Router) error {
 	r.HandleFunc("/health", s.healthCheck).Methods(http.MethodGet)
 
@@ -58,11 +57,8 @@ func (s *Server) AddRoutes(r *mux.Router) error {
 }
 
 func (s *Server) healthCheck(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
-	err := s.db.PingContext(ctx)
-	if err != nil {
-		handleError(ctx, w, err)
+	if err := s.db.PingContext(r.Context()); err != nil {
+		handleError(r.Context(), w, err)
 		return
 	}
 

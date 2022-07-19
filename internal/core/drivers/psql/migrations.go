@@ -3,22 +3,23 @@ package psql
 import (
 	"context"
 
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
-
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
-
-	// import file driver for migrate
-	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/golang-migrate/migrate/v4/source/file" // import file driver for migrate
+	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
+	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
 )
 
 const (
-	ErrDriverInit  = errors.Error("failed to initialize postgres driver")
+	// ErrDriverInit is returned when we cannot initialize the driver.
+	ErrDriverInit = errors.Error("failed to initialize postgres driver")
+	// ErrMigrateInit is returned when we cannot initialize the migrate driver.
 	ErrMigrateInit = errors.Error("failed to initialize migration driver")
-	ErrMigration   = errors.Error("failed to migrate database")
+	// ErrMigration is returned when we cannot run a migration.
+	ErrMigration = errors.Error("failed to migrate database")
 )
 
+// MigratePostgres migrates the database to the latest version.
 func (d *Driver) MigratePostgres(ctx context.Context, migrationsPath string) error {
 	driver, err := postgres.WithInstance(d.db.DB, &postgres.Config{})
 	if err != nil {
@@ -43,6 +44,7 @@ func (d *Driver) MigratePostgres(ctx context.Context, migrationsPath string) err
 	return nil
 }
 
+// RevertMigrations reverts the database to the previous version.
 func (d *Driver) RevertMigrations(ctx context.Context, migrationsPath string) error {
 	driver, err := postgres.WithInstance(d.db.DB, &postgres.Config{})
 	if err != nil {

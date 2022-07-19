@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/AlekSi/pointer"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/store"
-
-	"github.com/AlekSi/pointer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -6,40 +6,43 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
-
-	"github.com/gorilla/mux"
 )
 
 const (
+	// ErrAddRoutes is the error returned when adding routes to the router fails.
 	ErrAddRoutes = errors.Error("failed to add routes")
-	ErrServer    = errors.Error("listen stopped with error")
+	// ErrServer is the error returned when the server stops due to an error.
+	ErrServer = errors.Error("listen stopped with error")
 )
 
+// Config represents the configuration of the http listener.
 type Config struct {
 	Port string `yaml:"port"`
 }
 
+// Service represents a http service that provides routes for the listener.
 type Service interface {
 	AddRoutes(r *mux.Router) error
 }
 
+// Server represents a http server that listens on a port.
 type Server struct {
 	server *http.Server
 	port   string
 }
 
+// New instantiates a new instance of Server.
 func New(s Service, cfg Config) (*Server, error) {
 	r := mux.NewRouter()
+	r.Use(tracingMiddleware)
+	r.Use(logTracingMiddleware)
+	r.Use(requestLoggingMiddleware)
 
-	err := s.AddRoutes(r)
-	if err != nil {
+	if err := s.AddRoutes(r); err != nil {
 		return nil, ErrAddRoutes.Wrap(err)
-	}
-
-	h := handler{
-		handler: r,
 	}
 
 	return &Server{
@@ -49,12 +52,13 @@ func New(s Service, cfg Config) (*Server, error) {
 				baseContext := context.Background()
 				return logging.With(baseContext, logging.From(baseContext))
 			},
-			Handler: h,
+			Handler: r,
 		},
 		port: cfg.Port,
 	}, nil
 }
 
+// Listen starts the server and listens on the configured port.
 func (s *Server) Listen(ctx context.Context) error {
 	logging.From(ctx).Info(fmt.Sprintf("http server starting on port: %s", s.port))
 

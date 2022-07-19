@@ -8,20 +8,18 @@ import (
 	"testing"
 	"time"
 
+	"github.com/AlekSi/pointer"
+	"github.com/ory/dockertest/v3"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/drivers/psql"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
 	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/store"
-
-	"github.com/AlekSi/pointer"
-	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 const (
-	testUsername = "guest"
-	testPassword = "guest"
+	dsn = "postgresql://guest:guest@localhost:%s/speakeasy?sslmode=disable"
 )
 
 var (
@@ -48,57 +46,57 @@ func TestMain(m *testing.M) {
 	}
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "alpine", []string{fmt.Sprintf("POSTGRES_USER=%s", testUsername), fmt.Sprintf("POSTGRES_PASSWORD=%s", testUsername)})
+	resource, err := pool.Run("postgres", "alpine", []string{"POSTGRES_USER=guest", "POSTGRES_PASSWORD=guest", "POSTGRES_DB=speakeasy"})
 	if err != nil {
-		log.Fatalf("Could not start resource: %s", err)
+		log.Fatalf("could not start resource: %v", err)
 	}
 
 	purge := func() {
 		if err := pool.Purge(resource); err != nil {
-			log.Fatalf("Could not purge resource: %s", err)
+			log.Fatalf("could not purge resource: %v", err)
 		}
 	}
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		db = psql.New(psql.Config{
-			Host:     "localhost",
-			Username: testUsername,
-			Password: testPassword,
-			Port:     resource.GetPort("5432/tcp"),
+			DSN: fmt.Sprintf(dsn, resource.GetPort("5432/tcp")),
 		})
 		if err := db.Connect(ctx); err != nil {
+			log.Printf("could not connect to database: %v", err)
 			return err
 		}
 
-		return db.GetDB().Ping()
+		if err := db.GetDB().Ping(); err != nil {
+			log.Printf("could not ping to database: %v", err)
+			return err
+		}
+
+		return nil
 	}); err != nil {
 		purge()
-		log.Fatalf("Could not connect to database: %s", err)
+		log.Fatalf("could not connect to database: %v", err)
 	}
 
 	if err := db.MigratePostgres(ctx, "file://../../../migrations"); err != nil {
 		purge()
-		log.Fatalf("Could not migrate database: %s", err)
+		log.Fatalf("could not migrate database: %v", err)
 	}
 
 	initialInsertedUserID, err = insertUser(ctx, initialUser)
 	if err != nil {
 		purge()
-		log.Fatalf("Could not insert user: %s", err)
+		log.Fatalf("could not insert user: %v", err)
 	}
 
 	code := m.Run()
 
 	if err := db.Close(ctx); err != nil {
 		purge()
-		log.Fatalf("Could not close db resource: %s", err)
+		log.Fatalf("could not close db resource: %v", err)
 	}
 
-	if err := pool.Purge(resource); err != nil {
-		purge()
-		log.Fatalf("Could not purge resource: %s", err)
-	}
+	purge()
 
 	os.Exit(code)
 }
@@ -805,7 +803,7 @@ func TestStore_UpdateUser_Error(t *testing.T) {
 			wantErr2: store.ErrEmptyCountry,
 		},
 		{
-			name: "failed updating non-existant user",
+			name: "failed updating non-existent user",
 			args: args{
 				user: &model.User{
 					ID:    pointer.ToString("15b76e47-40df-43e6-9d1e-02b72c473914"), // Will fail if we get any UUID conflicts on pre inserted users
@@ -880,7 +878,7 @@ func TestStore_DeleteUser_Error(t *testing.T) {
 		wantErr2 error
 	}{
 		{
-			name: "failed to delete non-existant user",
+			name: "failed to delete non-existent user",
 			args: args{
 				id: "4f54b006-e7d9-47bf-ad38-d56c75a032cf",
 			},
