@@ -3,7 +3,7 @@
 - Website: https://www.speakeasyapi.dev/
 - Twitter: https://twitter.com/speakeasydev
 
-![Speakeasy logo and mascot](https://storage.cloud.google.com/speakeasy-design-assets/speakeasy-docs-logo.png)
+![speakeasy-logo](https://user-images.githubusercontent.com/6267663/180816984-254daaec-a8e3-4c47-ac11-6c6d52a5e390.png)
 
 ## How To Use This Repo
 
