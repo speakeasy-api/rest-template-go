@@ -8,7 +8,9 @@
 <p align="center">
   <a href='http://makeapullrequest.com'><img alt='PRs Welcome' src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields'/></a>
   <a href='https://join.slack.com/t/speakeasy-dev/shared_invite/zt-1df0lalk5-HCAlpcQiqPw8vGukQWhexw'><img alt="Join Slack Community" src="https://img.shields.io/badge/slack%20community-join-blue"/></a>
+  <a href='https://goreportcard.com/report/github.com/speakeasy-api/speakeasy-example-rest-service-go'><img alt='Go Report Card' src='https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat'/></a>
 </p>
+
 
 ## How To Use This Repo
 
