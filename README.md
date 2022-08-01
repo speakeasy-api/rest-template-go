@@ -5,6 +5,11 @@
 
 ![speakeasy-logo](https://user-images.githubusercontent.com/6267663/180816984-254daaec-a8e3-4c47-ac11-6c6d52a5e390.png)
 
+<p align="center">
+  <a href='http://makeapullrequest.com'><img alt='PRs Welcome' src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields'/></a>
+  <a href='https://join.slack.com/t/speakeasy-dev/shared_invite/zt-1df0lalk5-HCAlpcQiqPw8vGukQWhexw'><img alt="Join Slack Community" src="https://img.shields.io/badge/slack%20community-join-blue"/></a>
+</p>
+
 ## How To Use This Repo
 
 This repo is intended to be used by Golang developers seeking to understand the building blocks of a simple and well-constructed REST API service. We have built a simple CRUD API which exhibits the characteristics we expect our own developers to apply to the APIs we build at Speakeasy:
