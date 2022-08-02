@@ -47,6 +47,7 @@ func New(s Service, cfg Config) (*Server, error) {
 
 	return &Server{
 		server: &http.Server{
+			ReadHeaderTimeout: 60,
 			Addr: fmt.Sprintf(":%s", cfg.Port),
 			BaseContext: func(net.Listener) context.Context {
 				baseContext := context.Background()
