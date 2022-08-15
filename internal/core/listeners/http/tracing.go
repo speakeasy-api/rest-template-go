@@ -3,7 +3,7 @@ package http
 import (
 	"net/http"
 
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
+	"github.com/speakeasy-api/rest-template-go/internal/core/logging"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"

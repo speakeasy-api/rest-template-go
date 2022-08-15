@@ -5,7 +5,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq" // imports the postgres driver
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
+	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
 )
 
 const (

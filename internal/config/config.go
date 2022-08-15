@@ -1,6 +1,6 @@
 package config
 
-import "github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/config"
+import "github.com/speakeasy-api/rest-template-go/internal/core/config"
 
 // Config represents the configuration of our application.
 type Config struct {

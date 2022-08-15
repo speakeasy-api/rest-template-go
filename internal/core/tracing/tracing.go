@@ -4,7 +4,7 @@ import (
 	"context"
 	"io/ioutil"
 
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
+	"github.com/speakeasy-api/rest-template-go/internal/core/logging"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/sdk/resource"
