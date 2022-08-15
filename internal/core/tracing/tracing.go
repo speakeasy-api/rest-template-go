@@ -2,7 +2,7 @@ package tracing
 
 import (
 	"context"
-	"io/ioutil"
+	"io"
 
 	"github.com/speakeasy-api/rest-template-go/internal/core/logging"
 	"go.opentelemetry.io/otel"
@@ -22,7 +22,7 @@ type OnShutdowner interface {
 // EnableTracing enables tracing.
 func EnableTracing(ctx context.Context, appName string, s OnShutdowner) error {
 	exp, err := stdouttrace.New(
-		stdouttrace.WithWriter(ioutil.Discard),
+		stdouttrace.WithWriter(io.Discard),
 		stdouttrace.WithPrettyPrint(),
 		stdouttrace.WithoutTimestamps(),
 	)

@@ -88,7 +88,7 @@ func (w wrappedError) Unwrap() error {
 
 // New just wraps errors.New as we don't want to alias the errors package everywhere to use it.
 func New(message string) error {
-	// nolint:goerr113
+	//nolint:goerr113
 	return errors.New(message)
 }
 

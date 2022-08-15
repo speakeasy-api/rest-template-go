@@ -2,7 +2,7 @@ package http
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -27,7 +27,7 @@ func (s *Server) createUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json") // TODO might do this in application specific middleware instead
 
-	data, err := ioutil.ReadAll(r.Body)
+	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		logging.From(ctx).Error("failed to read request body", zap.Error(err))
 		handleError(ctx, w, errors.ErrUnknown.Wrap(err))
@@ -76,7 +76,7 @@ func (s *Server) searchUsers(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json") // TODO might do this in application specific middleware instead
 
-	data, err := ioutil.ReadAll(r.Body)
+	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		logging.From(ctx).Error("failed to read request body", zap.Error(err))
 		handleError(ctx, w, errors.ErrUnknown.Wrap(err))
@@ -109,7 +109,7 @@ func (s *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	data, err := ioutil.ReadAll(r.Body)
+	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		logging.From(ctx).Error("failed to read request body", zap.Error(err))
 		handleError(ctx, w, errors.ErrUnknown.Wrap(err))

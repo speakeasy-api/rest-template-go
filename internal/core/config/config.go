@@ -1,7 +1,7 @@
 package config
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/speakeasy-api/rest-template-go/internal/core/drivers/psql"
 	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
@@ -24,7 +24,7 @@ type AppConfig struct {
 
 // Load loads the configuration from a yaml file on disk.
 func Load(cfg interface{}) error {
-	data, err := ioutil.ReadFile("config/config.yaml") // TODO support different environments
+	data, err := os.ReadFile("config/config.yaml") // TODO support different environments
 	if err != nil {
 		return ErrRead.Wrap(err)
 	}

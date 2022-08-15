@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
@@ -16,6 +17,10 @@ const (
 	ErrAddRoutes = errors.Error("failed to add routes")
 	// ErrServer is the error returned when the server stops due to an error.
 	ErrServer = errors.Error("listen stopped with error")
+)
+
+const (
+	readHeaderTimeout = 60 * time.Second
 )
 
 // Config represents the configuration of the http listener.
@@ -52,7 +57,8 @@ func New(s Service, cfg Config) (*Server, error) {
 				baseContext := context.Background()
 				return logging.With(baseContext, logging.From(baseContext))
 			},
-			Handler: r,
+			Handler:           r,
+			ReadHeaderTimeout: readHeaderTimeout,
 		},
 		port: cfg.Port,
 	}, nil
