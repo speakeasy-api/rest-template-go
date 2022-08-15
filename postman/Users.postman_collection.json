@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "91158b88-a3af-47f7-8d9c-50e7d889b8b5",
+		"_postman_id": "5bbd2348-ce8e-4637-9310-e5acff3a49c0",
 		"name": "Users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2180004"
+		"_exporter_id": "21869507"
 	},
 	"item": [
 		{
@@ -42,12 +42,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/user",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/user",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"user"
 					]
 				}
@@ -89,12 +90,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/users/search",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/users/search",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"users",
 						"search"
 					]
@@ -137,12 +139,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/user/{{user_id}}",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/user/{{user_id}}",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"user",
 						"{{user_id}}"
 					]
@@ -188,12 +191,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/user/{{user_id}}",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/user/{{user_id}}",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"user",
 						"{{user_id}}"
 					]
@@ -227,12 +231,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/user/{{user_id}}",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/user/{{user_id}}",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"user",
 						"{{user_id}}"
 					]
