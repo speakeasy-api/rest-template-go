@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "261cdc45-c2f3-4783-bb17-2f19f4834116",
+		"_postman_id": "c49976e1-35ac-4c63-87cb-2bcc6278be7f",
 		"name": "Bootstrap Users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2180004"
+		"_exporter_id": "21869507"
 	},
 	"item": [
 		{
@@ -65,12 +65,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/user",
+					"raw": "{{scheme}}://{{host}}{{port}}/v1/user",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}{{port}}"
 					],
 					"path": [
+						"v1",
 						"user"
 					]
 				}
