@@ -3,9 +3,9 @@ package config
 import (
 	"io/ioutil"
 
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/drivers/psql"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/listeners/http"
+	"github.com/speakeasy-api/rest-template-go/internal/core/drivers/psql"
+	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
+	"github.com/speakeasy-api/rest-template-go/internal/core/listeners/http"
 	"gopkg.in/yaml.v2"
 )
 

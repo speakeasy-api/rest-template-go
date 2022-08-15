@@ -1,4 +1,4 @@
-module github.com/speakeasy-api/speakeasy-example-rest-service-go
+module github.com/speakeasy-api/rest-template-go
 
 go 1.18
 

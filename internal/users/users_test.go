@@ -7,11 +7,11 @@ import (
 
 	"github.com/AlekSi/pointer"
 	"github.com/golang/mock/gomock"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/events"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/mocks"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
+	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
+	"github.com/speakeasy-api/rest-template-go/internal/events"
+	"github.com/speakeasy-api/rest-template-go/internal/users"
+	"github.com/speakeasy-api/rest-template-go/internal/users/mocks"
+	"github.com/speakeasy-api/rest-template-go/internal/users/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

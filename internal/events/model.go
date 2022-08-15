@@ -1,6 +1,6 @@
 package events
 
-import "github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/users/model"
+import "github.com/speakeasy-api/rest-template-go/internal/users/model"
 
 // EventType represents the type of event that occurred.
 type EventType string

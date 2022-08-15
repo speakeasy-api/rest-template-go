@@ -6,8 +6,8 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file" // import file driver for migrate
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/errors"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/core/logging"
+	"github.com/speakeasy-api/rest-template-go/internal/core/errors"
+	"github.com/speakeasy-api/rest-template-go/internal/core/logging"
 )
 
 const (

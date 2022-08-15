@@ -9,8 +9,8 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"
-	httptransport "github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/transport/http"
-	"github.com/speakeasy-api/speakeasy-example-rest-service-go/internal/transport/http/mocks"
+	httptransport "github.com/speakeasy-api/rest-template-go/internal/transport/http"
+	"github.com/speakeasy-api/rest-template-go/internal/transport/http/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
