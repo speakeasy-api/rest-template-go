@@ -1,4 +1,2 @@
 http:
   port: "8080"
-psql:
-  dsn: "postgresql://guest:guest@postgres:5432/speakeasy?sslmode=disable"

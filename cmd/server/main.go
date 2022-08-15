@@ -22,7 +22,7 @@ func main() {
 
 func appStart(ctx context.Context, a *app.App) ([]app.Listener, error) {
 	// Load configuration from config/config.yaml which contains details such as DB connection params
-	cfg, err := config.Load()
+	cfg, err := config.Load(ctx)
 	if err != nil {
 		return nil, err
 	}
