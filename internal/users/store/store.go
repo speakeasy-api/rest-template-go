@@ -191,7 +191,7 @@ func (s *Store) DeleteUser(ctx context.Context, id string) error {
 	return nil
 }
 
-// nolint:cyclop
+//nolint:cyclop
 func checkWriteError(err error) error {
 	if err == nil {
 		return nil

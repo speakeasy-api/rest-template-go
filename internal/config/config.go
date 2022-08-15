@@ -3,7 +3,6 @@ package config
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/caarlos0/env/v6"
@@ -16,15 +15,15 @@ import (
 )
 
 const (
-	// ErrInvalidEnvironment is returned when the SPEAKEASY_ENVIRONMENT environment variable is not set
-	ErrInvalidEnvironment = errors.Error("invalid environment")
-	// ErrValidation is returned when the configuration is invalid
+	// ErrInvalidEnvironment is returned when the SPEAKEASY_ENVIRONMENT environment variable is not set.
+	ErrInvalidEnvironment = errors.Error("SPEAKEASY_ENVIRONMENT is not set")
+	// ErrValidation is returned when the configuration is invalid.
 	ErrValidation = errors.Error("invalid configuration")
-	// ErrEnvVars is returned when the environment variables are invalid
+	// ErrEnvVars is returned when the environment variables are invalid.
 	ErrEnvVars = errors.Error("failed parsing env vars")
-	// ErrRead is returned when the configuration file cannot be read
+	// ErrRead is returned when the configuration file cannot be read.
 	ErrRead = errors.Error("failed to read file")
-	// ErrUnmarshal is returned when the configuration file cannot be unmarshalled
+	// ErrUnmarshal is returned when the configuration file cannot be unmarshalled.
 	ErrUnmarshal = errors.Error("failed to unmarshal file")
 )
 
@@ -38,7 +37,7 @@ type Config struct {
 	config.AppConfig `yaml:",inline"`
 }
 
-// Load loads the configuration from the config/config.yaml file
+// Load loads the configuration from the config/config.yaml file.
 func Load(ctx context.Context) (*Config, error) {
 	cfg := &Config{}
 
@@ -61,7 +60,7 @@ func Load(ctx context.Context) (*Config, error) {
 func loadFromFiles(ctx context.Context, cfg any) error {
 	environ := os.Getenv("SPEAKEASY_ENVIRONMENT")
 	if environ == "" {
-		return ErrInvalidEnvironment.Wrap(fmt.Errorf("SPEAKEASY_ENVIRONMENT is not set"))
+		return ErrInvalidEnvironment
 	}
 
 	if err := loadYaml(ctx, baseConfigPath, cfg); err != nil {
@@ -82,7 +81,7 @@ func loadFromFiles(ctx context.Context, cfg any) error {
 func loadYaml(ctx context.Context, filename string, cfg any) error {
 	logging.From(ctx).Info("Loading configuration", zap.String("path", filename))
 
-	data, err := ioutil.ReadFile(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		return ErrRead.Wrap(err)
 	}
