@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - POSTGRES_DSN="postgresql://guest:guest@postgres:5432/speakeasy?sslmode=disable" # Test credentials
+      - POSTGRES_DSN=postgresql://guest:guest@postgres:5432/speakeasy?sslmode=disable # Test credentials
       - SPEAKEASY_ENVIRONMENT=docker
     depends_on:
       - postgres
