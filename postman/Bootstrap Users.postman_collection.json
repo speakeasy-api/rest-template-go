@@ -65,10 +65,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{scheme}}://{{host}}{{port}}/v1/user",
+					"raw": "{{scheme}}://{{host}}:{{port}}/v1/user",
 					"protocol": "{{scheme}}",
 					"host": [
-						"{{host}}{{port}}"
+						"{{host}}:{{port}}"
 					],
 					"path": [
 						"v1",
