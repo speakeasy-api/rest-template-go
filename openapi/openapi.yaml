@@ -1,0 +1,228 @@
+openapi: 3.0.3
+info:
+  title: User API for Speakeasy template service
+  description: The Rest Template API is an API used for instrucitonal purposes.
+  version: 0.1.0
+  contact:
+    name: Speakeasy DevRel
+    email: nolan@speakeasyapi.dev
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/user:
+    post:
+      operationId: createUserv1
+      summary: Create user
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: OK
+        default:
+          $ref: "#/components/responses/default"
+  /v1/user/{id}:
+    get:
+      operationId: getUserv1
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+              type: string
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: OK
+        default:
+          $ref: "#/components/responses/default"
+    put:
+      operationId: updateUserv1
+      parameters:
+        - in: path
+          name: id
+          schema:
+              type: string
+          required: true
+          description: UserID
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: OK
+        default:
+          $ref: "#/components/responses/default"
+    delete:
+      operationId: deleteUserv1
+      summary: Delete a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+              type: string
+          required: true
+          description: UserID
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Success"
+          description: OK
+        default:
+          $ref: "#/components/responses/default"
+  /v1/users/search:
+    post:
+      operationId: searchUsersv1
+      summary: Search users
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Filters"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+          description: OK
+  /health:
+    get:
+      operationId: getHealth
+      summary: Healthcheck
+      responses:
+        "200":
+          description: OK
+        default:
+          $ref: "#/components/responses/default"
+components:
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+      description: Default error response
+  schemas:
+    Success:
+      description: The `Status` type defines a successful response.
+      properties:
+        success:
+          type: boolean
+      type: object
+    Error:
+      description: The `Status` type defines a logical error model
+      properties:
+        message:
+          description: A developer-facing error message.
+          type: string
+        status_code:
+          description: The HTTP status code
+          format: int32
+          type: integer
+      required:
+        - message
+        - status_code
+      type: object
+    Filter:
+      description: Filters are used to query requests.
+      properties:
+        field:
+          type: string
+        matchtype:
+          type: string
+        value:
+          type: string
+      required:
+        - field
+        - matchtype
+        - value
+      type: object
+    Filters:
+      description: An array of filters are used to query requests.
+      properties:
+        filters:
+          description: A list of filters to apply to the query.
+          items:
+            $ref: "#/components/schemas/Filter"
+          type: array
+        limit:
+          description: The maximum number of results to return.
+          type: integer
+        offset:
+          description: The offset to start the query from.
+          type: integer
+      required:
+        - filters
+        - limit
+        - offset
+      type: object
+    User:
+      description: The details of a typical user account
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        firstname:
+          type: string
+        lastname:
+          type: string
+        nickname:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+          format: email
+        country:
+          type: string
+        createdate:
+          format: date-time
+          type: string
+          readOnly: true
+        updatedate:
+          format: date-time
+          type: string
+          readOnly: true
+      required:
+        - firstname
+        - lastname
+        - nickname
+        - password
+        - email
+        - country
+      type: object
+    Users:
+      description: An array of users.
+      properties:
+        users:
+          description: A list of users to return.
+          items:
+            $ref: "#/components/schemas/User"
+          type: array
+      required:
+        - users
+      type: object
