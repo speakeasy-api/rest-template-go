@@ -11,8 +11,6 @@
 
 </div>
 
-<hr />
-
 # The RESTful API Template Project [Golang]
 
 ## How To Use This Repo
